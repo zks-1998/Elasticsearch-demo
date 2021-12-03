@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzhu.mapper.OrderMapper">
+
+    <select id="findById" parameterType="Long" resultType="Order">
+        select * from tb_order where id = #{id};
+    </select>
+
+    <select id="list" resultType="Order">
+        select * from tb_order;
+    </select>
+
+    <insert id="insertOrder" parameterType="Order">
+        insert into tb_order(id,user_id,name,price,num,address)
+        values (#{id},#{userId},#{name},#{price},#{num},#{address});
+    </insert>
+
+    <update id="updateOrder" parameterType="Order">
+        update tb_order
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+        </set>
+        where  id = #{id}
+    </update>
+    
+    <delete id="deleteOrder" parameterType="Long">
+        delete from tb_order where id = #{id}
+    </delete>
+
+
+</mapper>
